@@ -1,25 +1,20 @@
+import { getInitialState } from '@/app';
 import Footer from '@/components/Footer';
 import { listChartByPageUsingPOST } from '@/services/xubi/chartController';
-import {
-  AlipayCircleOutlined,
-  LockOutlined,
-  TaobaoCircleOutlined,
-  UserOutlined,
-  WeiboCircleOutlined,
-} from '@ant-design/icons';
+import { getLoginUserUsingGET, userLoginUsingPOST } from '@/services/xubi/userController';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { Helmet, history, useModel } from '@umijs/max';
-import { Alert, message, Tabs } from 'antd';
-import React, { useEffect, useState,  } from 'react';
-import { flushSync } from 'react-dom';
+import { message, Tabs } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'umi';
 import Settings from '../../../../config/defaultSettings';
-import {getLoginUserUsingGET, userLoginUsingPOST} from "@/services/xubi/userController";
+import {flushSync} from "react-dom";
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
-  const { initialState, setInitialState } = useModel('@@initialState');
+  const {initialState, setInitialState } = useModel('@@initialState');
   const containerClassName = useEmotionCss(() => {
     return {
       display: 'flex',
@@ -62,7 +57,7 @@ const Login: React.FC = () => {
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
         return;
-      }else {
+      } else {
         message.error(res.message);
       }
     } catch (error) {
